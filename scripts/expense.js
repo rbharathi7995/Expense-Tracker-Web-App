@@ -49,7 +49,7 @@ function renderFunction(){
 
    document.querySelectorAll('.js-remove-button').forEach((button)=>{
        button.addEventListener('click',()=>{
-        const clickIndex=button.dataset.index;
+        const clickIndex=Number(button.dataset.index);
 
         Tracker.splice(clickIndex,1);
         
@@ -64,8 +64,16 @@ renderFunction();
 
     document.querySelector('.js-ok-button').addEventListener('click',()=>{
         const inputSalary=document.querySelector('.js-salary-bar').value;
-         if(inputSalary<0){
-            alert('Enter valid amount');
+        function showMessage1(message){
+            document.querySelector('.js-salary-message').innerHTML=message;
+
+            setTimeout(()=>{
+                document.querySelector('.js-salary-message').innerHTML='';
+            },3000)
+        }
+        
+        if(inputSalary === '' || inputSalary<=0){
+            showMessage1('!Enter valid amount');
             return;
         }
 
@@ -84,20 +92,26 @@ renderFunction();
         const total=calculateTotal();   
         const savedSalary = getSalary();
 
-        
+        function showMessage(message){
+            document.querySelector('.js-message').innerHTML=message;
+
+            setTimeout(()=>{
+                document.querySelector('.js-message').innerHTML='';
+            },3000)
+        }
 
         if(inputName === '' || inputPrice <= 0){
-            alert('Enter valid task and amount');
+            showMessage('!Enter valid task and amount');
             return;
         }
 
          if(total+inputPrice > savedSalary){
-           alert('Expense money is greater than Actual money so it will leads to debts');
+           showMessage('!Expense money is greater than Actual money so it will leads to debts');
            return;
         }
 
          if(total+inputPrice > (0.75*savedSalary)){
-            alert('use your money carefully');
+            showMessage('!use your money carefully');
        }
           Tracker.push({
             task :inputName,
