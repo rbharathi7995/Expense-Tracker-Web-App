@@ -1,29 +1,16 @@
+import { showMessage } from "./message.js";
+import { getSalary,storage,salStorage } from "./storage.js";
+import { calculateTotal } from "./utils.js";
+
+
+
 const Tracker=JSON.parse(localStorage.getItem('Tracker')) || [];
 
-// imp for the feature i.e when we update the salary it should compare the values of new salary
-//instead of old salary
-function getSalary(){
-   return Number(localStorage.getItem('inputSalary')) || 0;
-}
 
 document.querySelector('.js-actual-money').innerHTML=getSalary();
 
-function calculateTotal(){
-    let total=0;
-     Tracker.forEach((tracker)=>{
-    total+=Number(tracker.Amount);
-      
- })
- return total;
-}
 
-function storage(){
-  localStorage.setItem('Tracker',JSON.stringify(Tracker))
-}
 
-function salStorage(inputSalary){
-    localStorage.setItem('inputSalary',JSON.stringify(Number(inputSalary)));
-}
 
 function renderFunction(){
   
@@ -42,7 +29,7 @@ function renderFunction(){
 
    document.querySelector('.js-tracker-container').innerHTML=listHtml;
 
-   const total=calculateTotal();
+   const total=calculateTotal(Tracker);
    document.querySelector('.js-final-expense-amount').innerHTML=total;
     document.querySelector('.js-remain-amount').innerHTML=getSalary()-total;
 
@@ -53,7 +40,7 @@ function renderFunction(){
 
         Tracker.splice(clickIndex,1);
         
-              storage();
+              storage(Tracker);
           renderFunction();         
        })
 
@@ -64,16 +51,9 @@ renderFunction();
 
     document.querySelector('.js-ok-button').addEventListener('click',()=>{
         const inputSalary=document.querySelector('.js-salary-bar').value;
-        function showMessage1(message){
-            document.querySelector('.js-salary-message').innerHTML=message;
-
-            setTimeout(()=>{
-                document.querySelector('.js-salary-message').innerHTML='';
-            },3000)
-        }
-        
+     
         if(inputSalary === '' || inputSalary<=0){
-            showMessage1('!Enter valid amount');
+            showMessage('.js-salary-message','!Enter valid amount');
             return;
         }
 
@@ -89,36 +69,29 @@ renderFunction();
         const inputName=document.querySelector('.js-task-name').value;
         const inputPrice=Number(document.querySelector('.js-task-price').value);
       
-        const total=calculateTotal();   
+        const total=calculateTotal(Tracker);   
         const savedSalary = getSalary();
 
-        function showMessage(message){
-            document.querySelector('.js-message').innerHTML=message;
-
-            setTimeout(()=>{
-                document.querySelector('.js-message').innerHTML='';
-            },3000)
-        }
 
         if(inputName === '' || inputPrice <= 0){
-            showMessage('!Enter valid task and amount');
+            showMessage('.js-message','!Enter valid task and amount');
             return;
         }
 
          if(total+inputPrice > savedSalary){
-           showMessage('!Expense money is greater than Actual money so it will leads to debts');
+           showMessage('.js-message','!Expense money is greater than Actual money so it will leads to debts');
            return;
         }
 
          if(total+inputPrice > (0.75*savedSalary)){
-            showMessage('!use your money carefully');
+            showMessage('.js-message','!use your money carefully');
        }
           Tracker.push({
             task :inputName,
             Amount:inputPrice
         })
  
-       storage();
+       storage(Tracker);
        renderFunction();
     
         document.querySelector('.js-task-name').value='';
