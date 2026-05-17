@@ -1,12 +1,5 @@
-const Tracker=JSON.parse(localStorage.getItem('Tracker')) || [{
-    task:'current Bill',
-    Amount:500
-},
-{
-    task:'House Rent',
-    Amount:5000
+const Tracker=JSON.parse(localStorage.getItem('Tracker')) || [];
 
-}];
 // imp for the feature i.e when we update the salary it should compare the values of new salary
 //instead of old salary
 function getSalary(){
@@ -35,7 +28,6 @@ function salStorage(inputSalary){
 function renderFunction(){
   
     let listHtml='';
-
     Tracker.forEach((tracker,index)=>{
    
     listHtml+=`
@@ -50,12 +42,19 @@ function renderFunction(){
 
    document.querySelector('.js-tracker-container').innerHTML=listHtml;
 
+   const total=calculateTotal();
+   document.querySelector('.js-final-expense-amount').innerHTML=total;
+    document.querySelector('.js-remain-amount').innerHTML=getSalary()-total;
+
+
    document.querySelectorAll('.js-remove-button').forEach((button)=>{
        button.addEventListener('click',()=>{
         const clickIndex=button.dataset.index;
+
         Tracker.splice(clickIndex,1);
+        
               storage();
-              renderFunction();         
+          renderFunction();         
        })
 
    })
@@ -65,11 +64,15 @@ renderFunction();
 
     document.querySelector('.js-ok-button').addEventListener('click',()=>{
         const inputSalary=document.querySelector('.js-salary-bar').value;
-        
+         if(inputSalary<0){
+            alert('Enter valid amount');
+            return;
+        }
+
          document.querySelector('.js-salary-bar').value='';
          document.querySelector('.js-actual-money').innerHTML=inputSalary;
          salStorage(inputSalary);
-       //  renderFunction();
+        renderFunction();
 
     });
 
@@ -78,9 +81,16 @@ renderFunction();
         const inputName=document.querySelector('.js-task-name').value;
         const inputPrice=Number(document.querySelector('.js-task-price').value);
       
-        const total=calculateTotal();
+        const total=calculateTotal();   
+        const savedSalary = getSalary();
 
-         const savedSalary = getSalary();
+        
+
+        if(inputName === '' || inputPrice <= 0){
+            alert('Enter valid task and amount');
+            return;
+        }
+
          if(total+inputPrice > savedSalary){
            alert('Expense money is greater than Actual money so it will leads to debts');
            return;
@@ -93,9 +103,10 @@ renderFunction();
             task :inputName,
             Amount:inputPrice
         })
-        
+ 
        storage();
        renderFunction();
+    
         document.querySelector('.js-task-name').value='';
         document.querySelector('.js-task-price').value='';
     })

@@ -43,6 +43,10 @@
     margin-left:18px;
 }
 .total-expense-amount{
-    display:flex;
+   display:flex
+}
+ 
+.expense-container{
+    margin-top: 30px;
 }
 

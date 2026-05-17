@@ -10,21 +10,33 @@
     <body> 
       <h1>Expense Tracker</h1>
       <div>
-        <input class="salary-bar js-salary-bar" type="text" placeholder="Enter your Salary">
+        <input class="salary-bar js-salary-bar" type="number" placeholder="Enter your Salary">
         <button class="ok-button js-ok-button">OK</button>
         <div class="money-info">
-          <span class="salary">Your Salary =</span>
+          <span class="salary"><strong>Your Salary :</strong></span>
            <span class="actual-money js-actual-money"></span>
         </div>
       </div>
     <div class="input-info ">
             <input class="task-name js-task-name" type="text" placeholder="Enter your spending task">  
-            <input class="task-price js-task-price" type="text" placeholder="Enter spending Amount">
+            <input class="task-price js-task-price" type="number" placeholder="Enter spending Amount">
             <button class="add-button js-add-button">Add</button>
        </div>
       
       
-        <div class="tracker-container js-tracker-container"></div>
+    <div class="tracker-container js-tracker-container"> </div>
+    
+    <div class="expense-container">
+        <div class="total-expense-amount">
+          <span><strong>Total Expense Amount : </strong> </span>
+          <span class="final-expense-amount js-final-expense-amount"></span>
+        </div>
+        <div class="remain-amount-container">
+          <span class="remain-text"><strong>Remaining Amount : </strong></span>
+          <span class="remain-amount js-remain-amount"></span>
+        </div>
+    </div>
+       
     <script type="module" src="scripts/expense.js"></script>
 
     
