@@ -2,17 +2,14 @@ import { showMessage } from "./message.js";
 import { getSalary,storage,salStorage } from "./storage.js";
 import { calculateTotal } from "./utils.js";
 
-
-
 const Tracker=JSON.parse(localStorage.getItem('Tracker')) || [];
-
 
 document.querySelector('.js-actual-money').innerHTML=getSalary();
 
 
 
 
-function renderFunction(){
+export function renderFunction(){
   
     let listHtml='';
     Tracker.forEach((tracker,index)=>{
@@ -49,20 +46,7 @@ function renderFunction(){
 }
 renderFunction();
 
-    document.querySelector('.js-ok-button').addEventListener('click',()=>{
-        const inputSalary=document.querySelector('.js-salary-bar').value;
-     
-        if(inputSalary === '' || inputSalary<=0){
-            showMessage('.js-salary-message','!Enter valid amount');
-            return;
-        }
-
-         document.querySelector('.js-salary-bar').value='';
-         document.querySelector('.js-actual-money').innerHTML=inputSalary;
-         salStorage(inputSalary);
-        renderFunction();
-
-    });
+ 
 
     document.querySelector('.js-add-button').addEventListener('click',()=>{
 
@@ -96,6 +80,10 @@ renderFunction();
     
         document.querySelector('.js-task-name').value='';
         document.querySelector('.js-task-price').value='';
+    })
+
+    document.querySelector('.js-salary-change').addEventListener('click',()=>{
+        window.location.href='index.html'
     })
 
     
