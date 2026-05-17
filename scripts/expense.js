@@ -58,17 +58,17 @@ renderFunction();
 
 
         if(inputName === '' || inputPrice <= 0){
-            showMessage('.js-message','!Enter valid task and amount');
+            showMessage('.js-message','!Enter valid task and amount','red');
             return;
         }
 
          if(total+inputPrice > savedSalary){
-           showMessage('.js-message','!Expense money is greater than Actual money so it will leads to debts');
+           showMessage('.js-message','!Expense money is greater than Actual money so it will leads to debts','red');
            return;
         }
 
          if(total+inputPrice > (0.75*savedSalary)){
-            showMessage('.js-message','!use your money carefully');
+            showMessage('.js-message','!Spend your money carefully','orange');
        }
           Tracker.push({
             task :inputName,

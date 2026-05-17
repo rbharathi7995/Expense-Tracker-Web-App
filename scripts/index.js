@@ -18,7 +18,7 @@ import { salStorage } from "./storage.js";
     const inputSalary=document.querySelector('.js-salary-bar').value;
 
         if(inputSalary === '' || inputSalary<=0){
-            showMessage('.js-salary-message','!Enter valid amount');
+            showMessage('.js-salary-message','!Enter valid amount','red');
             return;
         }
          document.querySelector('.js-salary-bar').value='';
