@@ -22,7 +22,6 @@ import { salStorage } from "./storage.js";
             return;
         }
          document.querySelector('.js-salary-bar').value='';
-         //document.querySelector('.js-actual-money').innerHTML=inputSalary;
          salStorage(inputSalary);
 
          window.location.href='expense.html';

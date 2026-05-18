@@ -1,5 +1,5 @@
 import { showMessage } from "./message.js";
-import { getSalary,storage,salStorage } from "./storage.js";
+import { getSalary,storage} from "./storage.js";
 import { calculateTotal } from "./utils.js";
 
 const Tracker=JSON.parse(localStorage.getItem('Tracker')) || [];
@@ -83,6 +83,7 @@ renderFunction();
     })
 
     document.querySelector('.js-salary-change').addEventListener('click',()=>{
+        localStorage.removeItem('Tracker');
         window.location.href='index.html'
     })
 
